@@ -1,29 +1,35 @@
 <script setup>
 const route = useRoute();
+const { cars } = useCars();
+const { firstLetterCapitalized } = useUtilities();
 useHead({
   title: firstLetterCapitalized(route.params.name),
 });
 
-function firstLetterCapitalized(str) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+const car = computed(() => {
+  return cars.find((car) => car.id === parseInt(route.params.id));
+});
+
+if (!car.value) {
+  throw createError({
+    statusCode: 404,
+    message: `Car with id ${route.params.id} not found`,
   });
 }
+
+definePageMeta({
+  layout: "custom",
+});
 </script>
 
 <template>
-  <div>
-    <NavBar />
-    <div
-      class="mx-auto mt-4 max-w-7xl space-y-4 px-4 xs:px-8 sm:px-10 lg:px-16 pb-16 w-3/5"
-    >
-      <CarDetailHero />
+  <div v-if="car">
+    <CarDetailHero :car="car" />
 
-      <CarDetailAttribute />
+    <CarDetailAttribute :features="car.features" />
 
-      <CarDetailDescription />
+    <CarDetailDescription :description="car.description" />
 
-      <CarDetailContact />
-    </div>
+    <CarDetailContact />
   </div>
 </template>
