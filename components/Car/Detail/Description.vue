@@ -1,12 +1,14 @@
 <script setup>
 const props = defineProps({
-  description: {
-    type: String,
-  },
+  description: String,
 });
 </script>
+
+
 <template>
   <div class="mt-5">
-    <div class="mb-10">{{ description }}}</div>
+    <p class="mb-10">
+      {{ description }}
+    </p>
   </div>
 </template>

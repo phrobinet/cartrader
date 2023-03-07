@@ -1,11 +1,10 @@
 <script setup>
 const route = useRoute();
-const { firstLetterCapitalized } = useUtilities();
-
+const { toTitleCase } = useUtilities();
 useHead({
   title: `${
-    route.params.make ? route.params.make.toUpperCase() : "Cars"
-  }  in ${firstLetterCapitalized(route.params.city)}`,
+    route.params.make ? toTitleCase(route.params.make) : "Cars"
+  } in ${toTitleCase(route.params.city)}`,
 });
 
 definePageMeta({
@@ -21,13 +20,15 @@ definePageMeta({
         <NuxtPage />
         <template #error="{ error }">
           <div class="text-center mx-auto flex flex-col">
-            <h1 class="text-5xl text-red-500">Sorry, sometyhing went wrong</h1>
+            <h1 class="text-5xl text-red-600 mb-4">
+              Sorry, something went wrong
+            </h1>
             <code>{{ error }}</code>
             <button
-              @click="error.value = null"
               class="text-white bg-blue-400 px-10 py-3 rounded mt-4"
+              @click="error.value = null"
             >
-              Go back
+              Go Back
             </button>
           </div>
         </template>
@@ -35,3 +36,4 @@ definePageMeta({
     </div>
   </div>
 </template>
+  

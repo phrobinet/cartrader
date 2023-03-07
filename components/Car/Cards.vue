@@ -14,6 +14,7 @@ const handleFavorite = (id) => {
   }
 };
 </script>
+
 <template>
   <div class="w-full">
     <CarCard
